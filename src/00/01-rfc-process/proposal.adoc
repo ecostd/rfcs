@@ -1,0 +1,162 @@
+= RFC Process
+:rfcpr: 0001
+:stdpr: 0000
+:authors: René Ferdinand Rivera Morell
+:email: grafikrobot@gmail.com
+:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
+:copyright: Copyright {authors}
+:version-label!:
+:reproducible:
+:nofooter:
+:sectanchors:
+:sectnums:
+:sectnumlevels: 10
+:source-highlighter: rouge
+:toc: macro
+:toc-title: Contents
+:toclevels: 5
+
+
+[horizontal]
+RFC PR: :: https://github.com/ecostd/rfcs/pull/{rfcpr}[{rfcpr}]
+Standard PR: :: https://github.com/ecostd/standard/pull/{stdpr}[{stdpr}]
+Date: :: {docdate}
+Authors: :: {authors}
+Reply-to: :: {email}
+Copyright: :: {copyright}, {license}
+
+toc::[]
+
+[[abstract]]
+== Abstract
+
+This proposes an RFC (request for change) process to create and change the
+primary "Programming Languages Tools Standard" publication. The process is
+intended to facilitate evaluation and evolution of changes in a maximally open
+method, so that all stakeholders and the community can collaborate towards
+the widest consensus.
+
+[[motivation]]
+== Motivation
+
+A driving force of the EcoStd group is to provide tooling standards that are
+widely adopted and of high utility for everyone. As such involvement from the
+varied tooling community is key. This proposal aims to make it easy for that
+community to define the tooling standards.
+
+[[scope]]
+== Scope
+
+This RFC process' primary aim is to specify how to change the tooling standards
+of EcoStd. But it is expected to also be applied to any decision that is
+sufficiently impactful to this community. Possible impactful decisions could
+include:
+
+* New features to the tooling standard.
+* How decisions are made, and who makes them, in the community.
+* New standalone standards.
+* Decide on reference implementations for the standards.
+
+This RFC process is not intended to be used for day-to-day decisions. As it is
+intentionally too "heavy" for such use. And such decisions usually do not need
+input from the wider community. Examples of such not-impactful decisions:
+
+* Editorial changes to the standards, like section organization, grammar, and
+  spelling.
+* Details of reference implementations. I.e. how something is implemented is not
+  important as long as the standards are followed.
+
+[[design]]
+== Design
+
+The sections below are duplicated in the appropriate location of the root
+`README.adoc`. Which is included as part of this RFC.
+
+:leveloffset: +1
+
+[[process]]
+== Process
+
+In order to add or make changes to the EcoStd standards one must get an RFC
+approved (i.e. proposed, discussed, voted on, and merged). Before following the
+steps below, make sure to read this entire process. As there are considerations
+to keep in mind that will improve the chances of your proposal being effective.
+The steps to submit an RFC are:
+
+. Fork the https://github.com/ecostd/rfcs[RFCs repository].
+
+. Copy the `src/00/00-template` directory to `src/00/00-my-proposal` (change
+  `my-proposal` to something short but descriptive).
+
+. Write your RFC in the `proposal.adoc` file. If you need additional files you
+  should place them *only* in the directory. It's important, i.e. required,
+  to properly fill in the `:authors:` and `:email:` fields with your
+  information. As they are used for proper license attribution. Consult the
+  https://docs.asciidoctor.org/asciidoc/latest/[Asciidoctor documentation]
+  on how to do that.
+
+. Submit a pull request. In addition to the RFC itself you should provide a
+  brief description in the pull request itself. Copy-pasting the RFC abstract
+  into the PR description is minimally sufficient.
+
+. Use the pull request number you now have to rename the
+  `src/00/00-my-proposal` directory to match the PR number and fill the
+  `:rfcpr:` field in `proposal.adoc` to match.
+
+. At this time the RFC will be considered _active_ and will be labeled
+  accordingly. The RFC will receive initial feedback for which you will need to
+  respond, preferably both in the PR comments and reflected in the RFC text
+  itself.
+
+. After some time, and sufficient discussion and interest, and if this is a
+  proposal for a standard change (or addition) you wil need to write wording for
+  the standard and create a PR in the
+  https://github.com/ecostd/standard[standard] repository. You may also be
+  directly asked to produce a wording PR if needed. When you have such a PR
+  edit the RFC `:stdpr:` field. The RFC will be labeled either as needing
+  wording and/or having wording as appropriate. The wording PR will be
+  discussed in that PR and/or the RFC. The discussion may incur doing changes
+  to the RFC.
+
+. After sufficient time and discussion the combined RFC and wording PR will
+  be considered ready for a decision on further progress. A member of the
+  "adoption review group" will propose taking a vote for adoption.
+
+[[guidelines]]
+== Guidelines
+
+:leveloffset: -1
+
+[[prior-art]]
+== Prior Art
+
+This proposal is roughly based on the
+https://github.com/rust-lang/rfcs[Rust Language RFC process] (as of 2024-12).
+The Rust RFC process provides a compelling demonstration of the ability to
+agree on changes to the Rust language in an open manner.
+
+[[considerations]]
+== Considerations
+
+Who makes up the "adoption review group"?::
+The precise make up of who gets to vote on what RFCs get adopted is undecided.
+Although it's likely that we will try and balance community involvement and the
+RFC consumers (aka the tool implementors). Ideas, and volunteers, on this are
+encouraged to comment.
+
+How long should the adoption voting period be?::
+There are many answers to this that are possible.
+
+Should RFCs for new standards components require an implementation?::
+While it would be desirable to have standards that mirror what is already out
+in the wild, that is not always possible. Especially in the case where there
+are multiple differing implementations for equivalent functionality. Hence it's
+best to generally prefer implementation experience but to not require it.
+
+[[license]]
+== License
+
+This work is licensed under the Creative Commons Attribution 4.0 International
+License. To view a copy of this license, visit
+http://creativecommons.org/licenses/by/4.0/ or send a letter to Creative
+Commons, PO Box 1866, Mountain View, CA 94042, USA.

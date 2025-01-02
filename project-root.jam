@@ -1,0 +1,125 @@
+#|
+Copyright René Ferdinand Rivera Morell
+|#
+
+import asciidoctor ;
+import regex ;
+import set ;
+import "class" : new ;
+
+path-constant here : . ;
+
+project /ecostd.rfcs
+	: build-dir .build
+	;
+
+# Find all the RFC proposals.
+local rfcs ;
+local rfc-proposals ;
+for local proposal in [ glob src/*/*/proposal.adoc ]
+{
+	local rfc = [ MATCH "^src/([0-9][0-9])/([0-9][0-9])-([^/]+)" : $(proposal) ] ;
+	if $(rfc[3])
+	{
+		rfc = $(rfc[1])$(rfc[2])-$(rfc[3]) ;
+		rfcs += $(rfc) ;
+		rfc-proposals += $(proposal) ;
+		explicit [ html $(rfc).html : $(proposal) ] ;
+		explicit [ install $(rfc) : $(rfc).html : <location>$(proposal:D) ] ;
+	}
+	else
+	{
+		ECHO "WARNING: The RFC at $(proposal) is missing a name." ;
+	}
+}
+
+# Scan RFC proposal.adoc files for information to generate various files.
+RFCINDEX_ADOC = ;
+local rfc-authors = [ new set ] ;
+local rfc-g = [ regex.grep $(here)/src : proposal.adoc
+	: "^= ([^\n]+)" ":authors: ([^\n]+)"
+	: 1
+	: recursive ] ;
+while $(rfc-g)
+{
+	local prop = $(rfc-g[1]) ;
+	local title = $(rfc-g[2]) ;
+	local authors = [ SORT [ regex.split $(rfc-g[4]) ",[ ]?" ] ] ;
+	$(rfc-authors).add $(authors) ;
+	rfc-g = $(rfc-g[5-]) ;
+	local rfc = [ MATCH "src/([0-9][0-9])/([0-9][0-9])-([^/]+)" : $(prop) ] ;
+	rfc = $(rfc[1])$(rfc[2])-$(rfc[3]) ;
+	RFCINDEX_ADOC +=
+		"| link:$(rfc).html[$(rfc)] | $(title) | $(authors:J=, )"
+		;
+}
+
+# Generate rfcindex.adoc from RFC scan. Used in html RFC site docs.
+RFCINDEX_ADOC =
+	"[cols=\"3*\",stripes=odd]"
+	"|==="
+	"| RFC | Title | Authors"
+	""
+	[ SORT $(RFCINDEX_ADOC) ]
+	"|==="
+	;
+RFCINDEX_ADOC = "$(RFCINDEX_ADOC:J=
+)" ;
+
+make rfcindex.adoc : : @make_rfcindex_adoc
+	:	<dependency>project-root.jam
+		<dependency>$(rfcs).html
+	;
+explicit rfcindex.adoc ;
+actions make_rfcindex_adoc
+{
+	echo @($(<):O=F:E=$(RFCINDEX_ADOC))
+}
+
+# Generate CONTRIBUTORS.adoc automatically from RFC authors.
+CONTRIBUTORS_ADOC =
+	"= Contributors"
+	""
+	;
+CONTRIBUTORS_ADOC +=
+	"== RFC Authors"
+	""
+	;
+for local author in [ SORT [ $(rfc-authors).list ] ]
+{
+	CONTRIBUTORS_ADOC += "* $(author)" ;
+}
+CONTRIBUTORS_ADOC = "$(CONTRIBUTORS_ADOC:J=
+)" ;
+make CONTRIBUTORS.adoc : : @make_contributors_adoc
+	: 	<dependency>project-root.jam
+		<dependency>$(rfc-proposals)
+	;
+explicit CONTRIBUTORS.adoc ;
+actions make_contributors_adoc
+{
+	echo @($(<):O=F:E=$(CONTRIBUTORS_ADOC))
+}
+
+# Generate the index.html for GH pages site of RFC database.
+html index.html : README.adoc
+	:	<dependency>rfcindex.adoc
+		<dependency>CONTRIBUTORS.adoc
+		<asciidoctor-attribute>publish=html
+	;
+explicit index.html ;
+
+# Place the GH pages files in the place we publish from (in CI).
+install pub
+	:	$(rfcs).html
+		index.html
+	:	<location>.build/pub
+	;
+explicit pub ;
+
+# Update general information files that we commit for direct visibility in GH.
+install info
+	:	CONTRIBUTORS.adoc
+	:	<location>.
+	;
+explicit info ;
