@@ -17,6 +17,83 @@
 
 // TODO: Copy "Design" section from 0001-rfc-process proposal here.
 
+[#process]
+== Process
+
+In order to add or make changes to the EcoStd standards one must get an RFC
+approved (i.e. proposed, discussed, voted on, and merged). Before following the
+steps below, make sure to read this entire process. As there are considerations
+to keep in mind that will improve the chances of your proposal being effective.
+The steps to submit an RFC are:
+
+. Fork the https://github.com/ecostd/rfcs[RFCs repository].
+
+. Copy the `src/00/00-template-adoc` (or `src/00/00-template-md` for
+  Markdown/GFM) directory to `src/00/00-my-proposal` (change `my-proposal` to
+  something short, but descriptive).
+
+. Write your RFC in the `proposal.adoc` (or `proposal.md` for markdown/GFM)
+  file. If you need additional files you should place them *only* in the 
+  directory. It's important, i.e. required, to properly fill in the `authors` 
+  and `email` metadata fields at the top with your information. As they are 
+  used for proper license attribution. Consult the
+  https://docs.asciidoctor.org/asciidoc/latest/[Asciidoctor documentation],
+  or on how to do that.
+
+. Submit a pull request. In addition to the RFC itself you should provide a
+  brief description in the pull request itself. Copy-pasting the RFC abstract
+  into the PR description is minimally sufficient.
+
+. Use the pull request number you now have to rename the
+  `src/00/00-my-proposal` directory to match the PR number and fill the
+  `rfcpr` field in `proposal.adoc` (or `proposal.md` for Markdown/GFM) to match.
+
+. At this time the RFC will be considered _active_ and will be labeled
+  accordingly. The RFC will receive initial feedback for which you will need to
+  respond, preferably both in the PR comments and reflected in the RFC text
+  itself.
+
+. After some time, and sufficient discussion and interest, and if this is a
+  proposal for a standard change (or addition) you wil need to write wording for
+  the standard and create a PR in the
+  https://github.com/ecostd/standard[standard] repository. You may also be
+  directly asked to produce a wording PR if needed. When you have such a PR
+  edit the RFC `:stdpr:` field. The RFC will be labeled either as needing
+  wording and/or having wording as appropriate. The wording PR will be
+  discussed in that PR and/or the RFC. The discussion may incur doing changes
+  to the RFC.
+
+. After sufficient time and discussion the combined RFC and wording PR will
+  be considered ready for a decision on further progress. A member of the
+  "adoption review group" will propose taking a vote for adoption.
+
+. An adoption vote starts after three members of the review group agree. The
+  vote will last at most 28 calendar days, and at least 7 calendar days. The
+  length of the voting period will be part of the voting proposal. But the
+  length is subject to community feedback before and during the voting. The
+  RFC PR will be labeled accordingly to reflect the voting.
+
+. When the adoption vote completes the RFC is either approved or rejected. The
+  RFC will be labeled accordingly and may be closed.
+
+. A rejected RFC PR may be closed depending on the reasons for rejection. The
+  RFC may stay active, but go back to being discussed, if there are changes
+  possible and reconsidered for approval.
+
+. An approved RFC PR is closed, and labeled as adopted. The actions proscribed
+  in the RFC are then taken up by others to complete. For RFCs that affect the
+  https://github.com/ecostd/standard[standard] will continue in the related
+  PR by the "standard editors group".
+
+TIP: The preferred document format for RFCs is
+https://asciidoctor.org[Asciidoctor]. But the
+https://github.github.com/gfm/[GitHub Flavored Markdown] format is supported as
+an alternative. The extent of support is subject to what is supported by the
+conversion to Asciidoctor process.
+
+[#guidelines]
+== Guidelines
+
 [[license]]
 == License
 

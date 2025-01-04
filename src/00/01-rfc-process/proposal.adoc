@@ -119,7 +119,25 @@ The steps to submit an RFC are:
   be considered ready for a decision on further progress. A member of the
   "adoption review group" will propose taking a vote for adoption.
 
-WARNING: The preferred document format for RFCs is
+. An adoption vote starts after three members of the review group agree. The
+  vote will last at most 28 calendar days, and at least 7 calendar days. The
+  length of the voting period will be part of the voting proposal. But the
+  length is subject to community feedback before and during the voting. The
+  RFC PR will be labeled accordingly to reflect the voting.
+
+. When the adoption vote completes the RFC is either approved or rejected. The
+  RFC will be labeled accordingly and may be closed.
+
+. A rejected RFC PR may be closed depending on the reasons for rejection. The
+  RFC may stay active, but go back to being discussed, if there are changes
+  possible and reconsidered for approval.
+
+. An approved RFC PR is closed, and labeled as adopted. The actions proscribed
+  in the RFC are then taken up by others to complete. For RFCs that affect the
+  https://github.com/ecostd/standard[standard] will continue in the related
+  PR by the "standard editors group".
+
+TIP: The preferred document format for RFCs is
 https://asciidoctor.org[Asciidoctor]. But the
 https://github.github.com/gfm/[GitHub Flavored Markdown] format is supported as
 an alternative. The extent of support is subject to what is supported by the
@@ -148,7 +166,10 @@ RFC consumers (aka the tool implementors). Ideas, and volunteers, on this are
 encouraged to comment.
 
 How long should the adoption voting period be?::
-There are many answers to this that are possible.
+There are many answers to this that are possible. Instead of choosing a specific
+period for everything we use a variable range. This allows for faster turnaround
+for smaller/easier RFCs. While allowing longer consideration for larger/harder
+RFCs.
 
 Should RFCs for new standards components require an implementation?::
 While it would be desirable to have standards that mirror what is already out
