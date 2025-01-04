@@ -17,7 +17,7 @@ project /ecostd.rfcs
 	: build-dir .build
 	;
 
-# Find all the RFC proposals.
+# Find all the RFC proposals and define targets to build html for them.
 local rfcs ;
 local rfc-proposals ;
 for local proposal in [ glob src/*/*/proposal.* ]
@@ -31,12 +31,16 @@ for local proposal in [ glob src/*/*/proposal.* ]
 		{
 			rfcs += $(rfc) ;
 			rfc-proposals += $(proposal) ;
+			# ADOC => HTML target.
 			explicit [ html $(rfc).html : $(proposal) ] ;
+			# Utility target to locally build proposal html (in proposal dir).
 			explicit [ install $(rfc) : $(rfc).html : <location>$(proposal:D) ] ;
 		}
 		else if .md = $(type)
 		{
 			rfcs += $(rfc) ;
+			rfc-proposals += $(proposal) ;
+			# MD => ADOC target.
 			explicit [ make $(rfc).adoc : $(proposal) : @md_to_adoc
 				:	<dependency>project-root.jam
 					<flags>"--attribute=license=Creative Commons Attribution 4.0 International License (CC BY 4.0)"
@@ -53,7 +57,9 @@ for local proposal in [ glob src/*/*/proposal.* ]
 					<flags>--attribute=toclevels=5
 					<flags>"--attribute=revdate={docdate}"
 				] ;
+			# ADOC => HTML target.
 			explicit [ html $(rfc).html : $(rfc).adoc ] ;
+			# Utility target to locally build proposal html (in proposal dir).
 			explicit [ install $(rfc) : $(rfc).html : <location>$(proposal:D) ] ;
 		}
 		else
