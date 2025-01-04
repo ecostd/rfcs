@@ -66,11 +66,15 @@ input from the wider community. Examples of such not-impactful decisions:
 
 The sections below are duplicated in the appropriate location of the root
 `README.adoc`. Which is included as part of this RFC. Upon approval these will
-become the main body of the `README.adoc`. Additionally the following are
+become the main body of the `README.adoc`. Additionally the following are an
 expected consequence of adoption:
 
 * Creation of status labels in https://github.com/ecostd/rfcs[RFCs repository]:
-  `rfc-active`
+  `rfc-active`, `rfc-needs-std-pr`, `rfc-std-pr`, `rfc-approval-requested`,
+  `rfc-approval-voting`, `rfc-approved`, `rfc-rejected`, and possibly others.
+
+* Creation of a GitHub project to automatically track status of RFCs based on
+  the status label.
 
 :leveloffset: +1
 
@@ -156,9 +160,15 @@ These are a loose collection of rules to follow, things to keep in mind, and
 background information that is useful when creating RFCs. They are grouped by
 the aspect of RFCs that they apply to:
 
-Mechanics:: Guidelines for the task of the RFC and PR itself.
-Design:: Guidelines for that help with the design content of an RFC.
+<<guidelines-mechanics>>:: Guidelines for the task of the RFC and PR itself.
+<<guidelines-design>>:: Guidelines for that help with the design content of an RFC.
 
+These are _guidelines_, and not _rules_. They are expected to be true most
+times. But we allow for flexibility in the process. The goal is to reduce
+friction as much as possible without sacrificing comprehensive evaluation of
+RFCs.
+
+[#guidelines-mechanics]
 === Mechanics
 
 Do not squash, or otherwise coalesce, changes for RFC PRs::
@@ -176,13 +186,21 @@ Do not change approved PRs::
 After a PR is approved, and labeled as such, do not alter it. It will be merged
 in due time. If there are followup changes they should come as different RFCs.
 
+[#guidelines-design]
 === Design
 
 Prefer solutions that cast a wide net::
-...
+The key goal of EcoStd is to facilitate wide adoption and interoperation. Hence
+single solutions that solve a wide scope are preferred. Which means that you can
+expect questions like: "`Does this solve X, Y, and Z also?`", "`Have you
+considered use case U?`", and more.
 
 Including existing practice is essential for an RFC::
-...
+Engineering is an iterative practice as such it makes progress from existing
+solutions towards better ones. Solutions without a problem are just dreams that
+are not likely widely shared. For those reasons, and more, it's imperative that
+an RFC is based on existing practice, i.e. demonstrate that there's a problem
+and solution that this is trying to improve.
 
 :leveloffset: -1
 
