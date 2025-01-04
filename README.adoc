@@ -58,7 +58,7 @@ The steps to submit an RFC are:
   the standard and create a PR in the
   https://github.com/ecostd/standard[standard] repository. You may also be
   directly asked to produce a wording PR if needed. When you have such a PR
-  edit the RFC `:stdpr:` field. The RFC will be labeled either as needing
+  edit the RFC `stdpr` field. The RFC will be labeled either as needing
   wording and/or having wording as appropriate. The wording PR will be
   discussed in that PR and/or the RFC. The discussion may incur doing changes
   to the RFC.
@@ -89,10 +89,43 @@ TIP: The preferred document format for RFCs is
 https://asciidoctor.org[Asciidoctor]. But the
 https://github.github.com/gfm/[GitHub Flavored Markdown] format is supported as
 an alternative. The extent of support is subject to what is supported by the
-conversion to Asciidoctor process.
+conversion to Asciidoctor process as part of build the HTML for the
+https://ecostd.github.io/rfcs/[RFCs website].
 
 [#guidelines]
 == Guidelines
+
+These are a loose collection of rules to follow, things to keep in mind, and
+background information that is useful when creating RFCs. They are grouped by
+the aspect of RFCs that they apply to:
+
+Mechanics:: Guidelines for the task of the RFC and PR itself.
+Design:: Guidelines for that help with the design content of an RFC.
+
+=== Mechanics
+
+Do not squash, or otherwise coalesce, changes for RFC PRs::
+After creating an RFC PR additional updates should be done as additional, plain,
+commits. Having the additional commits helps in tracking how feedback is
+addressed. When an RFC is approved it will be squash merged. Hence attempts to
+pre-squash would be wasted.
+
+Mirror external feedback in the PR::
+Any feedback you get outside of PR comments should be summarized, by you, as
+comments in the PR. And if there are changes, i.e. additional commits, to the
+RFC that are related they should be mentioned in the PR comments.
+
+Do not change approved PRs::
+After a PR is approved, and labeled as such, do not alter it. It will be merged
+in due time. If there are followup changes they should come as different RFCs.
+
+=== Design
+
+Prefer solutions that cast a wide net::
+...
+
+Including existing practice is essential for an RFC::
+...
 
 [[license]]
 == License
