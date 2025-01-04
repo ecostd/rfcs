@@ -1,20 +1,19 @@
 = EcoStd RFCs
 :authors: René Ferdinand Rivera Morell
 :email: grafikrobot@gmail.com
-:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
 :copyright: Copyright {authors}
-:version-label!:
-:reproducible:
+:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
 :nofooter:
+:reproducible:
+:revdate: {docdate}
 :sectanchors:
-:sectnums:
 :sectnumlevels: 10
+:sectnums:
 :source-highlighter: rouge
-:toc: macro
 :toc-title: Contents
+:toc:
 :toclevels: 5
-
-toc::[]
+:version-label!:
 
 // TODO: Copy "Design" section from 0001-rfc-process proposal here.
 
@@ -22,7 +21,7 @@ toc::[]
 == License
 
 This repository, and all contributions to it, are licensed under
-https://creativecommons.org/licenses/by/4.0/[ CC BY 4.0].
+https://creativecommons.org/licenses/by/4.0/[CC BY 4.0].
 
 ifeval::["{publish}" == "html"]
 

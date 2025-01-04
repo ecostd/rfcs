@@ -1,33 +1,28 @@
+[#rfc-process]
 = RFC Process
-:rfcpr: 0001
-:stdpr: 0000
+:rfcpr: 1
+:stdpr: 0
 :authors: René Ferdinand Rivera Morell
 :email: grafikrobot@gmail.com
-:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
 :copyright: Copyright {authors}
-:version-label!:
-:reproducible:
+:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
 :nofooter:
+:reproducible:
+:revdate: {docdate}
 :sectanchors:
-:sectnums:
 :sectnumlevels: 10
+:sectnums:
 :source-highlighter: rouge
-:toc: macro
 :toc-title: Contents
+:toc:
 :toclevels: 5
+:version-label!:
 
 
-[horizontal]
-RFC PR: :: https://github.com/ecostd/rfcs/pull/{rfcpr}[{rfcpr}]
-Standard PR: :: https://github.com/ecostd/standard/pull/{stdpr}[{stdpr}]
-Date: :: {docdate}
-Authors: :: {authors}
-Reply-to: :: {email}
-Copyright: :: {copyright}, {license}
+* *RFC PR*: https://github.com/ecostd/rfcs/pull/{rfcpr}[ecostd/rfcs/{rfcpr}]
+* *Standard PR*: https://github.com/ecostd/standard/pull/{stdpr}[ecostd/standard/{stdpr}]
 
-toc::[]
-
-[[abstract]]
+[#abstract]
 == Abstract
 
 This proposes an RFC (request for change) process to create and change the
@@ -36,7 +31,7 @@ intended to facilitate evaluation and evolution of changes in a maximally open
 method, so that all stakeholders and the community can collaborate towards
 the widest consensus.
 
-[[motivation]]
+[#motivation]
 == Motivation
 
 A driving force of the EcoStd group is to provide tooling standards that are
@@ -44,7 +39,7 @@ widely adopted and of high utility for everyone. As such involvement from the
 varied tooling community is key. This proposal aims to make it easy for that
 community to define the tooling standards.
 
-[[scope]]
+[#scope]
 == Scope
 
 This RFC process' primary aim is to specify how to change the tooling standards
@@ -66,7 +61,7 @@ input from the wider community. Examples of such not-impactful decisions:
 * Details of reference implementations. I.e. how something is implemented is not
   important as long as the standards are followed.
 
-[[design]]
+[#design]
 == Design
 
 The sections below are duplicated in the appropriate location of the root
@@ -74,7 +69,7 @@ The sections below are duplicated in the appropriate location of the root
 
 :leveloffset: +1
 
-[[process]]
+[#process]
 == Process
 
 In order to add or make changes to the EcoStd standards one must get an RFC
@@ -85,15 +80,17 @@ The steps to submit an RFC are:
 
 . Fork the https://github.com/ecostd/rfcs[RFCs repository].
 
-. Copy the `src/00/00-template` directory to `src/00/00-my-proposal` (change
-  `my-proposal` to something short but descriptive).
+. Copy the `src/00/00-template-adoc` (or `src/00/00-template-md` for
+  Markdown/GFM) directory to `src/00/00-my-proposal` (change `my-proposal` to
+  something short, but descriptive).
 
-. Write your RFC in the `proposal.adoc` file. If you need additional files you
-  should place them *only* in the directory. It's important, i.e. required,
-  to properly fill in the `:authors:` and `:email:` fields with your
-  information. As they are used for proper license attribution. Consult the
-  https://docs.asciidoctor.org/asciidoc/latest/[Asciidoctor documentation]
-  on how to do that.
+. Write your RFC in the `proposal.adoc` (or `proposal.md` for markdown/GFM)
+  file. If you need additional files you should place them *only* in the 
+  directory. It's important, i.e. required, to properly fill in the `authors` 
+  and `email` metadata fields at the top with your information. As they are 
+  used for proper license attribution. Consult the
+  https://docs.asciidoctor.org/asciidoc/latest/[Asciidoctor documentation],
+  or on how to do that.
 
 . Submit a pull request. In addition to the RFC itself you should provide a
   brief description in the pull request itself. Copy-pasting the RFC abstract
@@ -101,7 +98,7 @@ The steps to submit an RFC are:
 
 . Use the pull request number you now have to rename the
   `src/00/00-my-proposal` directory to match the PR number and fill the
-  `:rfcpr:` field in `proposal.adoc` to match.
+  `rfcpr` field in `proposal.adoc` (or `proposal.md` for Markdown/GFM) to match.
 
 . At this time the RFC will be considered _active_ and will be labeled
   accordingly. The RFC will receive initial feedback for which you will need to
@@ -122,12 +119,18 @@ The steps to submit an RFC are:
   be considered ready for a decision on further progress. A member of the
   "adoption review group" will propose taking a vote for adoption.
 
-[[guidelines]]
+WARNING: The preferred document format for RFCs is
+https://asciidoctor.org[Asciidoctor]. But the
+https://github.github.com/gfm/[GitHub Flavored Markdown] format is supported as
+an alternative. The extent of support is subject to what is supported by the
+conversion to Asciidoctor process.
+
+[#guidelines]
 == Guidelines
 
 :leveloffset: -1
 
-[[prior-art]]
+[#prior-art]
 == Prior Art
 
 This proposal is roughly based on the
@@ -135,7 +138,7 @@ https://github.com/rust-lang/rfcs[Rust Language RFC process] (as of 2024-12).
 The Rust RFC process provides a compelling demonstration of the ability to
 agree on changes to the Rust language in an open manner.
 
-[[considerations]]
+[#considerations]
 == Considerations
 
 Who makes up the "adoption review group"?::
@@ -153,7 +156,7 @@ in the wild, that is not always possible. Especially in the case where there
 are multiple differing implementations for equivalent functionality. Hence it's
 best to generally prefer implementation experience but to not require it.
 
-[[license]]
+[#license]
 == License
 
 This work is licensed under the Creative Commons Attribution 4.0 International

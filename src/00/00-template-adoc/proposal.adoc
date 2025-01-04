@@ -1,48 +1,43 @@
+[#proposal-template]
 = Proposal Template
-:rfcpr: 0000
-:stdpr: 0000
+:rfcpr: 0
+:stdpr: 0
 :authors: René Ferdinand Rivera Morell
 :email: grafikrobot@gmail.com
-:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
 :copyright: Copyright {authors}
-:version-label!:
-:reproducible:
+:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
 :nofooter:
+:reproducible:
+:revdate: {docdate}
 :sectanchors:
-:sectnums:
 :sectnumlevels: 10
+:sectnums:
 :source-highlighter: rouge
-:toc: macro
 :toc-title: Contents
+:toc:
 :toclevels: 5
+:version-label!:
 
 
-[horizontal]
-RFC PR: :: https://github.com/ecostd/rfcs/pull/{rfcpr}[{rfcpr}]
-Standard PR: :: https://github.com/ecostd/standard/pull/{stdpr}[{stdpr}]
-Date: :: {docdate}
-Authors: :: {authors}
-Reply-to: :: {email}
-Copyright: :: {copyright}, {license}
+* *RFC PR*: https://github.com/ecostd/rfcs/pull/{rfcpr}[ecostd/rfcs/{rfcpr}]
+* *Standard PR*: https://github.com/ecostd/standard/pull/{stdpr}[ecostd/standard/{stdpr}]
 
-toc::[]
-
-[[abstract]]
+[#abstract]
 == Abstract
 
 A short explanation of what the proposed feature is for.
 
-[[motivation]]
+[#motivation]
 == Motivation
 
 Why is this needed? What problem does it solve? Who does this help?
 
-[[scope]]
+[#scope]
 == Scope
 
 What does this proposal do and what does it *not* do?
 
-[[design]]
+[#design]
 == Design
 
 Discuss in detail the proposal. The goal is for readers to get a complete
@@ -50,14 +45,14 @@ picture that answers all the issues one might think of. It's important to cover
 why this particular solution to the problem is better than other solutions.
 You should also include examples as needed for data formats, usage, and so on.
 
-[[prior-art]]
+[#prior-art]
 == Prior Art
 
 Discuss priori art that relates to this proposal. Has this proposal been
 implemented already? Have other implementations, designs, proposals have
 advantages and/or disadvantages compared to this proposal.
 
-[[considerations]]
+[#considerations]
 == Considerations
 
 What questions and answers are there?::
@@ -65,7 +60,7 @@ Indicated any questions you have encountered, either on your own or from others,
 and how have you addressed them in this proposal. Or if you haven´t addressed
 the question, explain why.
 
-[[license]]
+[#license]
 == License
 
 This work is licensed under the Creative Commons Attribution 4.0 International

@@ -2,10 +2,14 @@
 Copyright René Ferdinand Rivera Morell
 |#
 
+require-b2 5.3 ;
+
 import asciidoctor ;
 import regex ;
 import set ;
 import "class" : new ;
+import toolset ;
+import path ;
 
 path-constant here : . ;
 
@@ -16,16 +20,46 @@ project /ecostd.rfcs
 # Find all the RFC proposals.
 local rfcs ;
 local rfc-proposals ;
-for local proposal in [ glob src/*/*/proposal.adoc ]
+for local proposal in [ glob src/*/*/proposal.* ]
 {
 	local rfc = [ MATCH "^src/([0-9][0-9])/([0-9][0-9])-([^/]+)" : $(proposal) ] ;
+	local type = $(proposal:S) ;
 	if $(rfc[3])
 	{
 		rfc = $(rfc[1])$(rfc[2])-$(rfc[3]) ;
-		rfcs += $(rfc) ;
-		rfc-proposals += $(proposal) ;
-		explicit [ html $(rfc).html : $(proposal) ] ;
-		explicit [ install $(rfc) : $(rfc).html : <location>$(proposal:D) ] ;
+		if .adoc = $(type)
+		{
+			rfcs += $(rfc) ;
+			rfc-proposals += $(proposal) ;
+			explicit [ html $(rfc).html : $(proposal) ] ;
+			explicit [ install $(rfc) : $(rfc).html : <location>$(proposal:D) ] ;
+		}
+		else if .md = $(type)
+		{
+			rfcs += $(rfc) ;
+			explicit [ make $(rfc).adoc : $(proposal) : @md_to_adoc
+				:	<dependency>project-root.jam
+					<flags>"--attribute=license=Creative Commons Attribution 4.0 International License (CC BY 4.0)"
+					<flags>"--attribute=copyright=Copyright {authors}"
+					<flags>--attribute=version-label!
+					<flags>--attribute=reproducible
+					<flags>--attribute=nofooter
+					<flags>--attribute=sectanchors
+					<flags>--attribute=sectnums
+					<flags>--attribute=sectnumlevels=10
+					<flags>--attribute=source-highlighter=rouge
+					<flags>--attribute=toc
+					<flags>--attribute=toc-title=Contents
+					<flags>--attribute=toclevels=5
+					<flags>"--attribute=revdate={docdate}"
+				] ;
+			explicit [ html $(rfc).html : $(rfc).adoc ] ;
+			explicit [ install $(rfc) : $(rfc).html : <location>$(proposal:D) ] ;
+		}
+		else
+		{
+			ECHO "WARNING: The RFC at $(proposal) is an unsupported document type." ;
+		}
 	}
 	else
 	{
@@ -36,22 +70,32 @@ for local proposal in [ glob src/*/*/proposal.adoc ]
 # Scan RFC proposal.adoc files for information to generate various files.
 RFCINDEX_ADOC = ;
 local rfc-authors = [ new set ] ;
-local rfc-g = [ regex.grep $(here)/src : proposal.adoc
-	: "^= ([^\n]+)" ":authors: ([^\n]+)"
-	: 1
-	: recursive ] ;
-while $(rfc-g)
+local rfc-info =
+	[ regex.grep $(here)/src : proposal.adoc proposal.md
+		: "= ([^\n]+).:" "---[\n]+# ([^\n]+)" "authors: ([^\n]+)" : 1
+		: recursive ]
+	;
+while $(rfc-info)
 {
-	local prop = $(rfc-g[1]) ;
-	local title = $(rfc-g[2]) ;
-	local authors = [ SORT [ regex.split $(rfc-g[4]) ",[ ]?" ] ] ;
+	local prop = $(rfc-info[1]) ;
+	local title = $(rfc-info[2]) ;
+	local authors = [ SORT [ regex.split $(rfc-info[4]) ",[ ]?" ] ] ;
 	$(rfc-authors).add $(authors) ;
-	rfc-g = $(rfc-g[5-]) ;
+	rfc-info = $(rfc-info[5-]) ;
 	local rfc = [ MATCH "src/([0-9][0-9])/([0-9][0-9])-([^/]+)" : $(prop) ] ;
 	rfc = $(rfc[1])$(rfc[2])-$(rfc[3]) ;
 	RFCINDEX_ADOC +=
 		"| link:$(rfc).html[$(rfc)] | $(title) | $(authors:J=, )"
 		;
+}
+
+# Generate asciidoctor RFC from markdown/GFM RFC.
+toolset.flags $(__name__).md_to_adoc FLAGS : <flags> : unchecked ;
+KRAMDOC = [ path.native [ path.join [ path.make
+	[ SHELL "gem environment user_gemdir" : strip-eol ] ] "bin" "kramdoc" ] ] ;
+actions md_to_adoc
+{
+	"$(KRAMDOC)" "$(>)" "--output=$(<)" --auto-ids --auto-id-prefix= "$(FLAGS)"
 }
 
 # Generate rfcindex.adoc from RFC scan. Used in html RFC site docs.
