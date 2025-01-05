@@ -90,10 +90,13 @@ The steps to submit an RFC are:
 . Fork the https://github.com/ecostd/rfcs[RFCs repository].
 
 . Copy the `src/00/00-template-adoc` (or `src/00/00-template-md` for
-  Markdown/GFM) directory to `src/00/00-my-proposal` (change `my-proposal` to
+  Markdown
+  footnote:gfm[GitHub Flavored Markdown (https://github.github.com/gfm/)])
+  directory to `src/00/00-sliced-bread` (change `sliced-bread` to
   something short, but descriptive).
 
-. Write your RFC in the `proposal.adoc` (or `proposal.md` for markdown/GFM)
+. Write your RFC in the `proposal.adoc` (or `proposal.md` for Markdown
+  footnote:gfm[])
   file. If you need additional files you should place them *only* in the 
   directory. It's important, i.e. required, to properly fill in the `authors` 
   and `email` metadata fields at the top with your information. As they are 
@@ -107,7 +110,8 @@ The steps to submit an RFC are:
 
 . Use the pull request number you now have to rename the
   `src/00/00-my-proposal` directory to match the PR number and fill the
-  `rfcpr` field in `proposal.adoc` (or `proposal.md` for Markdown/GFM) to match.
+  `rfcpr` field in `proposal.adoc` (or `proposal.md` for Markdown
+  footnote:gfm[]) to match.
 
 . At this time the RFC will be considered _active_ and will be labeled
   accordingly. The RFC will receive initial feedback for which you will need to
