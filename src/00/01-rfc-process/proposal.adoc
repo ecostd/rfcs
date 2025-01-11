@@ -206,13 +206,29 @@ are not likely widely shared. For those reasons, and more, it's imperative that
 an RFC is based on existing practice, i.e. demonstrate that there's a problem
 and solution that this is trying to improve.
 
+Seek consensus with proposals and when responding to feedback::
+Because of the goal of this collective work is to achieve as widespread adoption
+as possible it's important to consider the varied viewpoints when composing
+solutions to problems. You should seek consensus as much as possible at all
+times. There are many ways to achieve consensus, and it would be impossible to
+enumerate them. But some general ones are:
+* Provide rationale (pros and cons) for decisions and feedback.
+* Seek to increase factual data in your proposal.
+* Include real world examples and use cases.
+* Provide before and after comparisons if you are proposing behavior changes.
+
 :leveloffset: -1
 
 [#prior-art]
 == Prior Art
 
-This proposal is roughly based on the
-https://github.com/rust-lang/rfcs[Rust Language RFC process] (as of 2024-12).
+This proposal is roughly based on these processes:
+
+https://github.com/zeromq/rfc[ZeroMQ RFC]::
+The ZeroMQ process demonstrates how an RFC process can be applied to
+specifications.
+
+https://github.com/rust-lang/rfcs[Rust Language RFC]::
 The Rust RFC process provides a compelling demonstration of the ability to
 agree on changes to the Rust language in an open manner.
 
@@ -246,6 +262,14 @@ No one, and everyone. The editing of the standard happens in the open as PRs
 to the https://github.com/ecostd/standard[standard repo]. The initial such PR
 for an RFC should ideally come from the RFC authors. A future RFC may appear
 formalizing a standard PR and merge process though.
+
+Can the process be automated?::
+Yes. There is potential to automate the labeling, voting, and merging through
+GitHub apps and CI. For example with auto-merge actions like
+https://github.com/marketplace/actions/auto-merge-pull-request. But I suspect
+that the amount of RFCs will be low enough that the effort to adopt or
+implement something to our liking would not be worth the tradeoff.
+Contributions on this would be very much welcomed though.
 
 [#license]
 == License

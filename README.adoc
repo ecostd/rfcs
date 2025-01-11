@@ -1,7 +1,4 @@
 = EcoStd RFCs
-:authors: René Ferdinand Rivera Morell
-:email: grafikrobot@gmail.com
-:copyright: Copyright {authors}
 :license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
 :nofooter:
 :reproducible:
@@ -15,7 +12,7 @@
 :toclevels: 5
 :version-label!:
 
-// TODO: Copy "Design" section from 0001-rfc-process proposal here.
+// TODO: Fill with "Design" section from 0001-rfc-process proposal below.
 
 [#process]
 == Process
@@ -144,6 +141,19 @@ solutions towards better ones. Solutions without a problem are just dreams that
 are not likely widely shared. For those reasons, and more, it's imperative that
 an RFC is based on existing practice, i.e. demonstrate that there's a problem
 and solution that this is trying to improve.
+
+Seek consensus with proposals and when responding to feedback::
+Because of the goal of this collective work is to achieve as widespread adoption
+as possible it's important to consider the varied viewpoints when composing
+solutions to problems. You should seek consensus as much as possible at all
+times. There are many ways to achieve consensus, and it would be impossible to
+enumerate them. But some general ones are:
+* Provide rationale (pros and cons) for decisions and feedback.
+* Seek to increase factual data in your proposal.
+* Include real world examples and use cases.
+* Provide before and after comparisons if you are proposing behavior changes.
+
+// TODO: Fill with "Design" section from 0001-rfc-process proposal above.
 
 [[license]]
 == License
