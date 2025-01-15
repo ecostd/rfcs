@@ -233,7 +233,8 @@ The Rust RFC process provides a compelling demonstration of the ability to
 agree on changes to the Rust language in an open manner.
 
 Additional influence comes from:
-* https://www.boost.org/community/reviews.html[Boost C++ Libraries review process].
+
+* https://www.boost.org/community/reviews.html[Boost {CPP} Libraries review process].
 * ISO standards process.
 
 [#considerations]
