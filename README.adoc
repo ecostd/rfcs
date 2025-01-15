@@ -55,7 +55,7 @@ The steps to submit an RFC are:
   itself.
 
 . After some time, and sufficient discussion and interest, and if this is a
-  proposal for a standard change (or addition) you wil need to write wording for
+  proposal for a standard change (or addition) you will need to write wording for
   the standard and create a PR in the
   https://github.com/ecostd/standard[standard] repository. You may also be
   directly asked to produce a wording PR if needed. When you have such a PR
