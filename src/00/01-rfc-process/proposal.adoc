@@ -1,0 +1,281 @@
+[#rfc-process]
+= RFC Process
+:rfcpr: 1
+:stdpr: 0
+:authors: René Ferdinand Rivera Morell
+:email: grafikrobot@gmail.com
+:copyright: Copyright {authors}
+:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
+:nofooter:
+:reproducible:
+:revdate: {docdate}
+:sectanchors:
+:sectnumlevels: 10
+:sectnums:
+:source-highlighter: rouge
+:toc-title: Contents
+:toc:
+:toclevels: 5
+:version-label!:
+
+
+* *RFC PR*: https://github.com/ecostd/rfcs/pull/{rfcpr}[ecostd/rfcs/{rfcpr}]
+* *Standard PR*: https://github.com/ecostd/standard/pull/{stdpr}[ecostd/standard/{stdpr}]
+
+[#abstract]
+== Abstract
+
+This proposes an RFC (request for change) process to create and change the
+primary "Programming Languages Tools Standard" publication. The process is
+intended to facilitate evaluation and evolution of changes in a maximally open
+method, so that all stakeholders and the community can collaborate towards
+the widest consensus.
+
+[#motivation]
+== Motivation
+
+A driving force of the EcoStd group is to provide tooling standards that are
+widely adopted and of high utility for everyone. As such involvement from the
+varied tooling community is key. This proposal aims to make it easy for that
+community to define the tooling standards.
+
+[#scope]
+== Scope
+
+This RFC process' primary aim is to specify how to change the tooling standards
+of EcoStd. But it is expected to also be applied to any decision that is
+sufficiently impactful to this community. Possible impactful decisions could
+include:
+
+* New features to the tooling standard.
+* How decisions are made, and who makes them, in the community.
+* New standalone standards.
+* Decide on reference implementations for the standards.
+
+This RFC process is not intended to be used for day-to-day decisions. As it is
+intentionally too "heavy" for such use. And such decisions usually do not need
+input from the wider community. Examples of such not-impactful decisions:
+
+* Editorial changes to the standards, like section organization, grammar, and
+  spelling.
+* Details of reference implementations. I.e. how something is implemented is not
+  important as long as the standards are followed.
+
+[#design]
+== Design
+
+The sections below are duplicated in the appropriate location of the root
+`README.adoc`. Which is included as part of this RFC. Upon approval these will
+become the main body of the `README.adoc`. Additionally the following are an
+expected consequence of adoption:
+
+* Creation of status labels in https://github.com/ecostd/rfcs[RFCs repository]:
+  `rfc-active`, `rfc-needs-std-pr`, `rfc-std-pr`, `rfc-approval-requested`,
+  `rfc-approval-voting`, `rfc-approved`, `rfc-rejected`, and possibly others.
+
+* Creation of a GitHub project to automatically track status of RFCs based on
+  the status label.
+
+:leveloffset: +1
+
+[#process]
+== Process
+
+In order to add or make changes to the EcoStd standards one must get an RFC
+approved (i.e. proposed, discussed, voted on, and merged). Before following the
+steps below, make sure to read this entire process. As there are considerations
+to keep in mind that will improve the chances of your proposal being effective.
+The steps to submit an RFC are:
+
+. Fork the https://github.com/ecostd/rfcs[RFCs repository].
+
+. Copy the `src/00/00-template-adoc` (or `src/00/00-template-md` for
+  Markdown
+  footnote:gfm[GitHub Flavored Markdown (https://github.github.com/gfm/)])
+  directory to `src/00/00-sliced-bread` (change `sliced-bread` to
+  something short, but descriptive).
+
+. Write your RFC in the `proposal.adoc` (or `proposal.md` for Markdown
+  footnote:gfm[])
+  file. If you need additional files you should place them *only* in the 
+  directory. It's important, i.e. required, to properly fill in the `authors` 
+  and `email` metadata fields at the top with your information. As they are 
+  used for proper license attribution. Consult the
+  https://docs.asciidoctor.org/asciidoc/latest/[Asciidoctor documentation],
+  or on how to do that.
+
+. Submit a pull request. In addition to the RFC itself you should provide a
+  brief description in the pull request itself. Copy-pasting the RFC abstract
+  into the PR description is minimally sufficient.
+
+. Use the pull request number you now have to rename the
+  `src/00/00-my-proposal` directory to match the PR number and fill the
+  `rfcpr` field in `proposal.adoc` (or `proposal.md` for Markdown
+  footnote:gfm[]) to match.
+
+. At this time the RFC will be considered _active_ and will be labeled
+  accordingly. The RFC will receive initial feedback for which you will need to
+  respond, preferably both in the PR comments and reflected in the RFC text
+  itself.
+
+. After some time, and sufficient discussion and interest, and if this is a
+  proposal for a standard change (or addition) you will need to write wording for
+  the standard and create a PR in the
+  https://github.com/ecostd/standard[standard] repository. You may also be
+  directly asked to produce a wording PR if needed. When you have such a PR
+  edit the RFC `stdpr` field. The RFC will be labeled either as needing
+  wording and/or having wording as appropriate. The wording PR will be
+  discussed in that PR and/or the RFC. The discussion may incur doing changes
+  to the RFC.
+
+. After sufficient time and discussion the combined RFC and wording PR will
+  be considered ready for a decision on further progress. A member of the
+  "adoption review group" will propose taking a vote for adoption.
+
+. An adoption vote starts after three members of the review group agree. The
+  vote will last at most 28 calendar days, and at least 7 calendar days. The
+  length of the voting period will be part of the voting proposal. But the
+  length is subject to community feedback before and during the voting. The
+  RFC PR will be labeled accordingly to reflect the voting.
+
+. When the adoption vote completes the RFC is either approved or rejected. The
+  RFC will be labeled accordingly and may be closed.
+
+. A rejected RFC PR will be closed. Depending on the conclusions of the
+  discussion further work can happen. But such future work will happen on new
+  RFC(s).
+
+. An approved RFC PR is merged, and labeled as adopted. The actions proscribed
+  in the RFC are then taken up by others to complete. For RFCs that affect the
+  https://github.com/ecostd/standard[standard] will continue in the related
+  PR by the "standard editors group".
+
+TIP: The preferred document format for RFCs is
+https://asciidoctor.org[Asciidoctor]. But the
+https://github.github.com/gfm/[GitHub Flavored Markdown] format is supported as
+an alternative. The extent of support is subject to what is supported by the
+conversion to Asciidoctor process as part of build the HTML for the
+https://ecostd.github.io/rfcs/[RFCs website].
+
+[#guidelines]
+== Guidelines
+
+These are a loose collection of rules to follow, things to keep in mind, and
+background information that is useful when creating RFCs. They are grouped by
+the aspect of RFCs that they apply to:
+
+<<guidelines-mechanics>>:: Guidelines for the task of the RFC and PR itself.
+<<guidelines-design>>:: Guidelines for that help with the design content of an RFC.
+
+These are _guidelines_, and not _rules_. They are expected to be true most
+times. But we allow for flexibility in the process. The goal is to reduce
+friction as much as possible without sacrificing comprehensive evaluation of
+RFCs.
+
+[#guidelines-mechanics]
+=== Mechanics
+
+Do not squash, or otherwise coalesce, changes for RFC PRs::
+After creating an RFC PR additional updates should be done as additional, plain,
+commits. Having the additional commits helps in tracking how feedback is
+addressed. When an RFC is approved it will be squash merged. Hence attempts to
+pre-squash would be wasted.
+
+Mirror external feedback in the PR::
+Any feedback you get outside of PR comments should be summarized, by you, as
+comments in the PR. And if there are changes, i.e. additional commits, to the
+RFC that are related they should be mentioned in the PR comments.
+
+Do not change approved PRs::
+After a PR is approved, and labeled as such, do not alter it. It will be merged
+in due time. If there are followup changes they should come as different RFCs.
+
+[#guidelines-design]
+=== Design
+
+Prefer solutions that cast a wide net::
+The key goal of EcoStd is to facilitate wide adoption and interoperation. Hence
+single solutions that solve a wide scope are preferred. Which means that you can
+expect questions like: "`Does this solve X, Y, and Z also?`", "`Have you
+considered use case U?`", and more.
+
+Including existing practice is essential for an RFC::
+Engineering is an iterative practice as such it makes progress from existing
+solutions towards better ones. Solutions without a problem are just dreams that
+are not likely widely shared. For those reasons, and more, it's imperative that
+an RFC is based on existing practice, i.e. demonstrate that there's a problem
+and solution that this is trying to improve.
+
+Seek consensus with proposals and when responding to feedback::
+Because of the goal of this collective work is to achieve as widespread adoption
+as possible it's important to consider the varied viewpoints when composing
+solutions to problems. You should seek consensus as much as possible at all
+times. There are many ways to achieve consensus, and it would be impossible to
+enumerate them. But some general ones are:
+* Provide rationale (pros and cons) for decisions and feedback.
+* Seek to increase factual data in your proposal.
+* Include real world examples and use cases.
+* Provide before and after comparisons if you are proposing behavior changes.
+
+:leveloffset: -1
+
+[#prior-art]
+== Prior Art
+
+This proposal is roughly based on these processes:
+
+https://github.com/zeromq/rfc[ZeroMQ RFC]::
+The ZeroMQ process demonstrates how an RFC process can be applied to
+specifications.
+
+https://github.com/rust-lang/rfcs[Rust Language RFC]::
+The Rust RFC process provides a compelling demonstration of the ability to
+agree on changes to the Rust language in an open manner.
+
+Additional influence comes from:
+
+* https://www.boost.org/community/reviews.html[Boost {CPP} Libraries review process].
+* ISO standards process.
+
+[#considerations]
+== Considerations
+
+Who makes up the "adoption review group"?::
+The precise make up of who gets to vote on what RFCs get adopted is undecided.
+Although it's likely that we will try and balance community involvement and the
+RFC consumers (aka the tool implementors). Ideas, and volunteers, on this are
+encouraged to comment.
+
+How long should the adoption voting period be?::
+There are many answers to this that are possible. Instead of choosing a specific
+period for everything we use a variable range. This allows for faster turnaround
+for smaller/easier RFCs. While allowing longer consideration for larger/harder
+RFCs.
+
+Should RFCs for new standards components require an implementation?::
+While it would be desirable to have standards that mirror what is already out
+in the wild, that is not always possible. Especially in the case where there
+are multiple differing implementations for equivalent functionality. Hence it's
+best to generally prefer implementation experience but to not require it.
+
+Who makes up the "standard editors group"?::
+No one, and everyone. The editing of the standard happens in the open as PRs
+to the https://github.com/ecostd/standard[standard repo]. The initial such PR
+for an RFC should ideally come from the RFC authors. A future RFC may appear
+formalizing a standard PR and merge process though.
+
+Can the process be automated?::
+Yes. There is potential to automate the labeling, voting, and merging through
+GitHub apps and CI. For example with auto-merge actions like
+https://github.com/marketplace/actions/auto-merge-pull-request. But I suspect
+that the amount of RFCs will be low enough that the effort to adopt or
+implement something to our liking would not be worth the tradeoff.
+Contributions on this would be very much welcomed though.
+
+[#license]
+== License
+
+This work is licensed under the Creative Commons Attribution 4.0 International
+License. To view a copy of this license, visit
+http://creativecommons.org/licenses/by/4.0/ or send a letter to Creative
+Commons, PO Box 1866, Mountain View, CA 94042, USA.
