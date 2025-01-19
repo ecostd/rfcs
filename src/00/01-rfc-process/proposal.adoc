@@ -141,11 +141,11 @@ The steps to submit an RFC are:
 . When the adoption vote completes the RFC is either approved or rejected. The
   RFC will be labeled accordingly and may be closed.
 
-. A rejected RFC PR may be closed depending on the reasons for rejection. The
-  RFC may stay active, but go back to being discussed, if there are changes
-  possible and reconsidered for approval.
+. A rejected RFC PR will be closed. Depending on the conclusions of the
+  discussion further work can happen. But such future work will happen on new
+  RFC(s).
 
-. An approved RFC PR is closed, and labeled as adopted. The actions proscribed
+. An approved RFC PR is merged, and labeled as adopted. The actions proscribed
   in the RFC are then taken up by others to complete. For RFCs that affect the
   https://github.com/ecostd/standard[standard] will continue in the related
   PR by the "standard editors group".
