@@ -1,0 +1,175 @@
+#|
+Copyright René Ferdinand Rivera Morell
+|#
+
+require-b2 5.3 ;
+
+import asciidoctor ;
+import regex ;
+import set ;
+import "class" : new ;
+import toolset ;
+import path ;
+
+path-constant here : . ;
+
+project /ecostd.rfcs
+	: build-dir .build
+	;
+
+# Find all the RFC proposals and define targets to build html for them.
+local rfcs ;
+local rfc-proposals ;
+for local proposal in [ glob src/*/*/proposal.* ]
+{
+	local rfc = [ MATCH "^src/([0-9][0-9])/([0-9][0-9])-([^/]+)" : $(proposal) ] ;
+	local type = $(proposal:S) ;
+	if $(rfc[3])
+	{
+		rfc = $(rfc[1])$(rfc[2])-$(rfc[3]) ;
+		if .adoc = $(type)
+		{
+			rfcs += $(rfc) ;
+			rfc-proposals += $(proposal) ;
+			# ADOC => HTML target.
+			explicit [ html $(rfc).html : $(proposal) ] ;
+			# Utility target to locally build proposal html (in proposal dir).
+			explicit [ install $(rfc) : $(rfc).html : <location>$(proposal:D) ] ;
+		}
+		else if .md = $(type)
+		{
+			rfcs += $(rfc) ;
+			rfc-proposals += $(proposal) ;
+			# MD => ADOC target.
+			explicit [ make $(rfc).adoc : $(proposal) : @md_to_adoc
+				:	<dependency>project-root.jam
+					<flags>"--attribute=license=Creative Commons Attribution 4.0 International License (CC BY 4.0)"
+					<flags>"--attribute=copyright=Copyright {authors}"
+					<flags>--attribute=version-label!
+					<flags>--attribute=reproducible
+					<flags>--attribute=nofooter
+					<flags>--attribute=sectanchors
+					<flags>--attribute=sectnums
+					<flags>--attribute=sectnumlevels=10
+					<flags>--attribute=source-highlighter=rouge
+					<flags>--attribute=toc
+					<flags>--attribute=toc-title=Contents
+					<flags>--attribute=toclevels=5
+					<flags>"--attribute=revdate={docdate}"
+				] ;
+			# ADOC => HTML target.
+			explicit [ html $(rfc).html : $(rfc).adoc ] ;
+			# Utility target to locally build proposal html (in proposal dir).
+			explicit [ install $(rfc) : $(rfc).html : <location>$(proposal:D) ] ;
+		}
+		else
+		{
+			ECHO "WARNING: The RFC at $(proposal) is an unsupported document type." ;
+		}
+	}
+	else
+	{
+		ECHO "WARNING: The RFC at $(proposal) is missing a name." ;
+	}
+}
+
+# Scan RFC proposal.adoc files for information to generate various files.
+RFCINDEX_ADOC = ;
+local rfc-authors = [ new set ] ;
+local rfc-info =
+	[ regex.grep $(here)/src : proposal.adoc proposal.md
+		: "= ([^\n]+).:" "---[\n]+# ([^\n]+)" "authors: ([^\n]+)" : 1
+		: recursive ]
+	;
+while $(rfc-info)
+{
+	local prop = $(rfc-info[1]) ;
+	local title = $(rfc-info[2]) ;
+	local authors = [ SORT [ regex.split $(rfc-info[4]) ",[ ]?" ] ] ;
+	$(rfc-authors).add $(authors) ;
+	rfc-info = $(rfc-info[5-]) ;
+	local rfc = [ MATCH "src/([0-9][0-9])/([0-9][0-9])-([^/]+)" : $(prop) ] ;
+	rfc = $(rfc[1])$(rfc[2])-$(rfc[3]) ;
+	RFCINDEX_ADOC +=
+		"| link:$(rfc).html[$(rfc)] | $(title) | $(authors:J=, )"
+		;
+}
+
+# Generate asciidoctor RFC from markdown/GFM RFC.
+toolset.flags $(__name__).md_to_adoc FLAGS : <flags> : unchecked ;
+KRAMDOC = [ path.native [ path.join [ path.make
+	[ SHELL "gem environment user_gemdir" : strip-eol ] ] "bin" "kramdoc" ] ] ;
+actions md_to_adoc
+{
+	"$(KRAMDOC)" "$(>)" "--output=$(<)" --auto-ids --auto-id-prefix= "$(FLAGS)"
+}
+
+# Generate rfcindex.adoc from RFC scan. Used in html RFC site docs.
+RFCINDEX_ADOC =
+	"[cols=\"3*\",stripes=odd]"
+	"|==="
+	"| RFC | Title | Authors"
+	""
+	[ SORT $(RFCINDEX_ADOC) ]
+	"|==="
+	;
+RFCINDEX_ADOC = "$(RFCINDEX_ADOC:J=
+)" ;
+
+make rfcindex.adoc : : @make_rfcindex_adoc
+	:	<dependency>project-root.jam
+		<dependency>$(rfcs).html
+	;
+explicit rfcindex.adoc ;
+actions make_rfcindex_adoc
+{
+	echo @($(<):O=F:E=$(RFCINDEX_ADOC))
+}
+
+# Generate CONTRIBUTORS.adoc automatically from RFC authors.
+CONTRIBUTORS_ADOC =
+	"= Contributors"
+	""
+	;
+CONTRIBUTORS_ADOC +=
+	"== RFC Authors"
+	""
+	;
+for local author in [ SORT [ $(rfc-authors).list ] ]
+{
+	CONTRIBUTORS_ADOC += "* $(author)" ;
+}
+CONTRIBUTORS_ADOC = "$(CONTRIBUTORS_ADOC:J=
+)" ;
+make CONTRIBUTORS.adoc : : @make_contributors_adoc
+	: 	<dependency>project-root.jam
+		<dependency>$(rfc-proposals)
+	;
+explicit CONTRIBUTORS.adoc ;
+actions make_contributors_adoc
+{
+	echo @($(<):O=F:E=$(CONTRIBUTORS_ADOC))
+}
+
+# Generate the index.html for GH pages site of RFC database.
+html index.html : README.adoc
+	:	<dependency>rfcindex.adoc
+		<dependency>CONTRIBUTORS.adoc
+		<asciidoctor-attribute>publish=html
+	;
+explicit index.html ;
+
+# Place the GH pages files in the place we publish from (in CI).
+install pub
+	:	$(rfcs).html
+		index.html
+	:	<location>.build/pub
+	;
+explicit pub ;
+
+# Update general information files that we commit for direct visibility in GH.
+install info
+	:	CONTRIBUTORS.adoc
+	:	<location>.
+	;
+explicit info ;
