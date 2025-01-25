@@ -42,7 +42,9 @@ jobs:
       - name: Install (APT)
         run: sudo apt-get install asciidoctor
       - name: Install (Kramdown)
-        run: gem install kramdown-asciidoc
+        run: |
+          gem environment user_gemdir
+          gem install --user-install kramdown-asciidoc
       - name: Install (B2)
         run: |
           set -e
