@@ -59,11 +59,11 @@ jobs:
         run: |
           echo "using asciidoctor ;" > project-config.jam
           b2 --debug-configuration -d+2 info pub
-      - name: Commit Generated
-        run: |
-          git config user.email "ecosystemstandard@gmail.com"
-          git config user.name "ecostd"
-          git commit -m "Update generated information." CONTRIBUTORS.adoc
+      # - name: Commit Generated
+      #   run: |
+      #     git config user.email "ecosystemstandard@gmail.com"
+      #     git config user.name "ecostd"
+      #     git commit -m "Update generated information." CONTRIBUTORS.adoc
       - name: Setup Pages
         uses: actions/configure-pages@main
       - name: Upload artifact
