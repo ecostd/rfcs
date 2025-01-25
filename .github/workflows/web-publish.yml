@@ -41,6 +41,8 @@ jobs:
         run: sudo apt-get update
       - name: Install (APT)
         run: sudo apt-get install asciidoctor
+      - name: Install (Kramdown)
+        run: gem install kramdown-asciidoc
       - name: Install (B2)
         run: |
           set -e
