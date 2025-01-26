@@ -63,8 +63,8 @@ jobs:
         run: |
           git config user.email "ecostd"
           git config user.name "ecostd"
-          git add --verbose CONTRIBUTORS.adoc || exit 0
-          git commit -m "Update generated information."
+          git add --verbose CONTRIBUTORS.adoc
+          git commit -m "Update generated information." || exit 0
           git push
       - name: Setup Pages
         uses: actions/configure-pages@main
